@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Publications — Sample</title>
+  <style>
+    :root{
+      --accent:#0b79ff;
+      --muted:#6b7280;
+      --card-bg:#fff;
+      --bg:#f6f8fb;
+      --radius:12px;
+      --glass: rgba(255,255,255,0.7);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f6f8fb,#ffffff);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+    }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 6vw; gap:12px;
+      border-bottom:1px solid rgba(15,23,42,0.06);
+      background: rgba(255,255,255,0.6);
+      position:sticky; top:0; backdrop-filter: blur(6px); z-index:30;
+    }
+    .brand{font-weight:700; font-size:18px;}
+    .controls{display:flex; gap:12px; align-items:center;}
+    .btn{padding:8px 14px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:#fff;cursor:pointer}
+    .btn.primary{background:var(--accent); color:#fff; border:0; box-shadow:0 6px 18px rgba(11,121,255,0.14);}
+    main{padding:36px 6vw 80px;}
+    h1{font-size:28px;margin:6px 0 12px}
+    p.lead{color:var(--muted); margin:0 0 20px}
+
+    /* search & filters */
+    .toolbar{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:22px;
+    }
+    .search{
+      flex:1; min-width:220px;
+    }
+    .search input{
+      width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(15,23,42,0.08);
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      outline:none; font-size:14px;
+    }
+    .filters{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+    .select, .tag {
+      background:var(--card-bg); border-radius:10px; padding:8px 10px; border:1px solid rgba(15,23,42,0.04);
+      font-size:13px; cursor:pointer;
+    }
+    .tag.active{background:var(--accent); color:#fff; border:0}
+
+    /* grid of publications */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--card-bg); border-radius:12px; padding:16px; box-shadow:0 8px 20px rgba(15,23,42,0.04);
+      display:flex; flex-direction:column; gap:10px;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(15,23,42,0.08); }
+    .meta{display:flex; justify-content:space-between; gap:8px; font-size:13px; color:var(--muted);}
+    .title{font-weight:700; font-size:16px; color:#071433}
+    .authors{color:var(--muted); font-size:13px}
+    .abstract{font-size:14px; color:#263248; line-height:1.45; display:none; margin-top:6px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .pill{background:#f1f5f9; padding:6px 8px; border-radius:999px; font-size:12px; color:#334155}
+
+    /* footer / pagination */
+    .pagination{display:flex; gap:8px; justify-content:center; margin-top:20px; align-items:center}
+    .page-btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.06); background:#fff; cursor:pointer}
+    .page-btn.active{background:var(--accent); color:#fff; border:0}
+
+    /* modal */
+    .modal-backdrop{position:fixed; inset:0; background:rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:60}
+    .modal{background:#fff; border-radius:12px; padding:20px; width:min(880px,94%); max-height:86vh; overflow:auto; box-shadow:0 20px 60px rgba(2,6,23,0.4)}
+    .modal h3{margin-top:0}
+    .close{float:right; cursor:pointer; padding:6px 8px; border-radius:8px; background:#f8fafc; border:1px solid rgba(15,23,42,0.04)}
+
+    @media (max-width:680px){
+      header{padding:12px 4vw}
+      main{padding:20px 4vw 60px}
+      h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="brand">EAP · Publications</div>
+    <div style="color:var(--muted);font-size:13px">EAP related Publications</div>
+  </div>
+  <div class="controls">
+    <button class="btn">About us</button>
+    <button class="btn primary">Explore</button>
+  </div>
+</header>
+
+<main>
+  <h1>Publications</h1>
+  <p class="lead">Find papers and preprints related to EAP. Filter by keyword, year, or tag.</p>
+
+  <div class="toolbar" role="region" aria-label="search and filters">
+    <div class="search" style="max-width:720px">
+      <input id="q" placeholder="Search by title, author, journal or keyword (Press Enter to search)" />
+    </div>
+
+    <div class="filters" aria-hidden="false">
+      <div id="yearFilter" class="select" title="Filter by year">Year<span id="yearLabel">All</span></div>
+      <div id="typeAll" class="tag active">All</div>
+      <div data-type="journal" class="tag">Journal</div>
+      <div data-type="preprint" class="tag">Preprint</div>
+    </div>
+  </div>
+
+  <div id="grid" class="grid" aria-live="polite">
+    <!-- 动态内容由 JS 渲染 -->
+  </div>
+
+  <div class="pagination" id="pager" aria-label="pagination"></div>
+
+  <!-- Modal for details -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <button id="closeModal" class="close">Close ✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  /**************************************************************************
+   * 示例数据（请替换为你的真实 publications 数据或通过 fetch 加载）
+   **************************************************************************/
+  const publications = [
+    {
+      id:1,
+      title:"MAnorm2 for quantitatively comparing groups of ChIP-seq samples",
+      authors:"Shiqi Tu",
+      journal:"Genome research",
+      year:2021,
+      type:"journal",
+      doi:"http://www.genome.org/cgi/doi/10.1101/gr.262675.120",
+      abstract:"Eukaryotic gene transcription is regulated by a large cohort of chromatin-associated proteins, and inferring their differential binding sites between cellular contexts requires a rigorous comparison of the corresponding ChIP-seq data. We present MAnorm2, a new computational tool for quantitatively comparing groups of ChIP-seq samples. MAnorm2 uses a hierarchical strategy for normalization of ChIP-seq data and assesses within-group variability of ChIP-seq signals based on an empirical Bayes framework. In this framework, MAnorm2 allows for abundant differential ChIP-seq signals between groups of samples as well as very different global within-group variability between groups. Using a number of real ChIP-seq data sets, we observed that MAnorm2 clearly outperformed existing tools for differential ChIP-seq analysis, especially when the groups of samples being compared had distinct global within-group variability.",
+      tags:["ATAC/ChIP-seq","Differential analysis","R package"]
+    },
+    {
+      id:2,
+      title:"A systematic dissection of the epigenomic heterogeneity of lung adenocarcinoma reveals two different subclasses with distinct prognosis and core regulatory networks",
+      authors:"Chongze Yuan",
+      journal:"Genome Biology",
+      year:2021,
+      type:"journal",
+      doi:" https://doi.org/10.1186/s13059-021-02376-1",
+      abstract:"Background Lung adenocarcinoma (LUAD) is a highly malignant and heterogeneous tumor that involves various oncogenic genetic alterations. Epigenetic processes play important roles in lung cancer development. However, the variation in enhancer and super-enhancer landscapes of LUAD patients remains largely unknown. To provide an in-depth understanding of the epigenomic heterogeneity of LUAD, we investigate the H3K27ac histone modification profiles of tumors and adjacent normal lung tissues from 42 LUAD patients and explore the role of epigenetic alterations in LUAD progression. Results A high intertumoral epigenetic heterogeneity is observed across the LUAD H3K27ac profiles. We quantitatively model the intertumoral variability of H3K27ac levels at proximal gene promoters and distal enhancers and propose a new epigenetic classification of LUAD patients. Our classification defines two LUAD subgroups which are highly related to histological subtypes. Group II patients have significantly worse prognosis than group I, which is further confirmed in the public TCGA-LUAD cohort. Differential RNA-seq analysis between group I and group II groups reveals that those genes upregulated in group II group tend to promote cell proliferation and induce cell de-differentiation. We construct the gene co-expression networks and identify group-specific core regulators. Most of these core regulators are linked with group-specific regulatory elements, such as super-enhancers. We further show that CLU is regulated by 3 group I-specific core regulators and works as a novel tumor suppressor in LUAD. Conclusions Our study systematically characterizes the epigenetic alterations during LUAD progression and provides a new classification model that is helpful for predicting patient prognosis.",
+      tags:["epigenomic","lung adenocarcinoma","subtyping"]
+    },
+    {
+      id:3,
+      title:"Analysis of T cell clonotypes with novel visualization",
+      authors:"Nguyen P., Chen H.",
+      journal:"Proc. of BioConf 2022",
+      year:2022,
+      type:"conference",
+      doi:"",
+      abstract:"介绍一种新的克隆型可视化方法，可以帮助研究者识别扩增克隆和表型关联。",
+      tags:["TCR","visualization"]
+    },
+    {
+      id:4,
+      title:"Combining metabolomics and immunoprofiling to predict response",
+      authors:"Garcia M., Chen H., Li R.",
+      journal:"Cell Reports",
+      year:2021,
+      type:"journal",
+      doi:"10.1016/example4",
+      abstract:"我们将代谢组学与免疫表型相结合，建立了预测免疫治疗反应的模型。",
+      tags:["metabolomics","immunotherapy"]
+    },
+    // ... 可增加更多示例条目
+  ];
+
+  /**************************************************************************
+   * 渲染逻辑：搜索、筛选、分页、展开摘要
+   **************************************************************************/
+  const grid = document.getElementById('grid');
+  const qInput = document.getElementById('q');
+  const yearFilterBtn = document.getElementById('yearFilter');
+  const yearLabel = document.getElementById('yearLabel');
+  const pager = document.getElementById('pager');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalContent = document.getElementById('modalContent');
+  const closeModal = document.getElementById('closeModal');
+
+  // UI state
+  let selectedType = 'all';
+  let selectedYear = null;
+  let query = '';
+  let currentPage = 1;
+  const PAGE_SIZE = 6;
+
+  // helper: get available years from data
+  const years = Array.from(new Set(publications.map(p=>p.year))).sort((a,b)=>b-a);
+
+  // build year selector menu (simple)
+  function buildYearMenu(){
+    const menu = document.createElement('div');
+    menu.style.position='absolute';
+    menu.style.background='#fff';
+    menu.style.border='1px solid rgba(0,0,0,0.06)';
+    menu.style.padding='8px';
+    menu.style.borderRadius='8px';
+    menu.style.boxShadow='0 8px 30px rgba(2,6,23,0.06)';
+    menu.style.display='none';
+    menu.style.zIndex=40;
+
+    const all = document.createElement('div');
+    all.textContent='全部';
+    all.style.padding='6px 10px';
+    all.style.cursor='pointer';
+    all.onclick = ()=>{ selectedYear=null; yearLabel.textContent='全部'; menu.style.display='none'; currentPage=1; render(); };
+    menu.appendChild(all);
+    years.forEach(y=>{
+      const el=document.createElement('div');
+      el.textContent=y;
+      el.style.padding='6px 10px';
+      el.style.cursor='pointer';
+      el.onclick = ()=>{ selectedYear=y; yearLabel.textContent=y; menu.style.display='none'; currentPage=1; render(); };
+      menu.appendChild(el);
+    });
+    document.body.appendChild(menu);
+
+    // attach toggle
+    yearFilterBtn.onclick = (e)=>{
+      const rect = yearFilterBtn.getBoundingClientRect();
+      menu.style.left = (rect.left) + 'px';
+      menu.style.top = (rect.bottom + 8) + 'px';
+      menu.style.display = (menu.style.display==='none' ? 'block' : 'none');
+    };
+
+    // close when clicking outside
+    document.addEventListener('click', (ev)=>{
+      if(!yearFilterBtn.contains(ev.target) && !menu.contains(ev.target)){
+        menu.style.display='none';
+      }
+    });
+  }
+
+  // type tags toggling
+  document.querySelectorAll('.tag').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      document.querySelectorAll('.tag').forEach(t=>t.classList.remove('active'));
+      el.classList.add('active');
+      selectedType = el.dataset.type || 'all';
+      currentPage = 1;
+      render();
+    });
+  });
+
+  // search on enter
+  qInput.addEventListener('keydown', (e)=>{
+    if(e.key==='Enter'){
+      query = qInput.value.trim().toLowerCase();
+      currentPage = 1;
+      render();
+    }
+  });
+
+  // simple search while typing (optional)
+  qInput.addEventListener('input', ()=>{
+    if(qInput.value.length===0){ query=''; render(); }
+  });
+
+  // pagination helper
+  function renderPager(total){
+    pager.innerHTML='';
+    const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    const addBtn = (label, page, cls='page-btn')=>{
+      const b = document.createElement('button');
+      b.className = cls + (page===currentPage ? ' active' : '');
+      b.textContent = label;
+      b.onclick = ()=>{ currentPage = page; render(); };
+      pager.appendChild(b);
+    };
+    addBtn('«', Math.max(1,currentPage-1));
+    for(let i=1;i<=pages;i++){
+      if(i>1 && i<pages && pages>7 && Math.abs(i-currentPage)>2){
+        if(i===2 || i===pages-1){
+          const dots = document.createElement('span'); dots.textContent='…'; dots.style.padding='0 6px'; pager.appendChild(dots);
+        }
+        continue;
+      }
+      addBtn(i, i);
+    }
+    addBtn('»', Math.min(pages,currentPage+1));
+  }
+
+  // render publications according to state
+  function render(){
+    // filter
+    let list = publications.filter(p=>{
+      if(selectedType !== 'all' && p.type !== selectedType) return false;
+      if(selectedYear && p.year !== selectedYear) return false;
+      if(query){
+        const text = (p.title + ' ' + p.authors + ' ' + (p.journal||'') + ' ' + (p.tags||[]).join(' ')).toLowerCase();
+        return text.includes(query);
+      }
+      return true;
+    });
+
+    const total = list.length;
+    // sort by year desc then id
+    list.sort((a,b)=> (b.year - a.year) || (b.id - a.id));
+
+    // pagination
+    const start = (currentPage-1)*PAGE_SIZE;
+    const pageItems = list.slice(start, start+PAGE_SIZE);
+
+    // render grid
+    grid.innerHTML = '';
+    if(pageItems.length === 0){
+      grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--muted); padding:28px; background:#fff; border-radius:12px">未找到相关文章。</div>';
+      renderPager(0);
+      return;
+    }
+
+    pageItems.forEach(p=>{
+      const card = document.createElement('article');
+      card.className='card';
+      card.setAttribute('tabindex','0');
+
+      const meta = document.createElement('div'); meta.className='meta';
+      meta.innerHTML = `<div>${p.journal || '—'}</div><div>${p.year}</div>`;
+      card.appendChild(meta);
+
+      const title = document.createElement('div'); title.className='title'; title.textContent = p.title;
+      card.appendChild(title);
+
+      const authors = document.createElement('div'); authors.className='authors'; authors.textContent = p.authors;
+      card.appendChild(authors);
+
+      const tagsWrap = document.createElement('div'); tagsWrap.className='tags';
+      (p.tags||[]).forEach(t=>{
+        const s = document.createElement('span'); s.className='pill'; s.textContent = t;
+        s.addEventListener('click', (ev)=>{ ev.stopPropagation(); // filter by tag
+          query = ''; qInput.value=''; selectedType='all';
+          document.querySelectorAll('.tag').forEach(tn=>tn.classList.remove('active'));
+          document.getElementById('typeAll').classList.add('active');
+          // set a quick tag filter via query
+          qInput.value = t; query = t.toLowerCase(); currentPage=1; render();
+        });
+        tagsWrap.appendChild(s);
+      });
+      card.appendChild(tagsWrap);
+
+      const btns = document.createElement('div');
+      btns.style.marginTop='6px';
+      const open = document.createElement('button');
+      open.className='btn';
+      open.textContent='Abstract';
+      open.onclick = (ev)=>{ ev.stopPropagation(); openModal(p); };
+      btns.appendChild(open);
+
+      if(p.doi){
+        const doiBtn = document.createElement('a');
+        doiBtn.className='btn';
+        doiBtn.href = 'https://doi.org/' + p.doi;
+        doiBtn.target='_blank';
+        doiBtn.rel='noopener';
+        doiBtn.style.marginLeft='8px';
+        doiBtn.textContent='DOI';
+        btns.appendChild(doiBtn);
+      }
+      card.appendChild(btns);
+
+      // keyboard open (Enter)
+      card.addEventListener('keydown', (e)=>{
+        if(e.key==='Enter') openModal(p);
+      });
+
+      grid.appendChild(card);
+    });
+
+    renderPager(total);
+  }
+
+  // modal
+  function openModal(p){
+    modalContent.innerHTML = `
+      <h3>${escapeHtml(p.title)}</h3>
+      <div style="color:var(--muted);margin-bottom:8px">${escapeHtml(p.authors)} · ${p.journal || ''} · ${p.year}</div>
+      <div style="margin-top:10px; white-space:pre-wrap; color:#263248">${escapeHtml(p.abstract || '无摘要')}</div>
+      ${p.doi ? `<div style="margin-top:14px"><a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI</a></div>` : ''}
+    `;
+    modalBackdrop.style.display = 'flex';
+  }
+  closeModal.onclick = ()=>{ modalBackdrop.style.display='none'; };
+  modalBackdrop.addEventListener('click', (e)=>{ if(e.target===modalBackdrop) modalBackdrop.style.display='none'; });
+
+  // util: escape
+  function escapeHtml(s){ return (s+'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+  // init
+  buildYearMenu();
+  render();
+
+</script>
+</body>
+</html>
