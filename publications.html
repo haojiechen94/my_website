@@ -226,10 +226,10 @@
     menu.style.zIndex=40;
 
     const all = document.createElement('div');
-    all.textContent='全部';
+    all.textContent='All';
     all.style.padding='6px 10px';
     all.style.cursor='pointer';
-    all.onclick = ()=>{ selectedYear=null; yearLabel.textContent='全部'; menu.style.display='none'; currentPage=1; render(); };
+    all.onclick = ()=>{ selectedYear=null; yearLabel.textContent='All'; menu.style.display='none'; currentPage=1; render(); };
     menu.appendChild(all);
     years.forEach(y=>{
       const el=document.createElement('div');
