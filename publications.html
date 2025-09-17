@@ -97,7 +97,7 @@
 
 <header>
   <div style="display:flex;align-items:center;gap:14px">
-    <div class="brand">EAP · Publications</div>
+    <div class="brand"><a href="https://haojiechen94.github.io/my_website/">EAP</a> · Publications</div>
     <div style="color:var(--muted);font-size:13px">EAP related Publications</div>
   </div>
   <div class="controls">
@@ -168,25 +168,25 @@
     },
     {
       id:3,
-      title:"Analysis of T cell clonotypes with novel visualization",
-      authors:"Nguyen P., Chen H.",
-      journal:"Proc. of BioConf 2022",
+      title:"HyperChIP: identification of hypervariable signals across ChIP-seq or ATAC-seq samples",
+      authors:"Haojie Chen",
+      journal:"Genome Biology",
       year:2022,
-      type:"conference",
-      doi:"",
-      abstract:"介绍一种新的克隆型可视化方法，可以帮助研究者识别扩增克隆和表型关联。",
-      tags:["TCR","visualization"]
+      type:"journal",
+      doi:"https://doi.org/10.1186/s13059-022-02627-9",
+      abstract:"Identifying genomic regions with hypervariable ChIP-seq or ATAC-seq signals across given samples is essential for large-scale epigenetic studies. In particular, the hypervariable regions across tumors from different patients indicate their heterogeneity and can contribute to revealing potential cancer subtypes and the associated epigenetic markers. We present HyperChIP as the first complete statistical tool for the task. HyperChIP uses scaled variances that account for the mean-variance dependence to rank genomic regions, and it increases the statistical power by diminishing the influence of true hypervariable regions on model fitting. A pan-cancer case study illustrates the practical utility of HyperChIP.",
+      tags:["ATAC/ChIP-seq","hypervariable analysis","R package"]
     },
     {
       id:4,
-      title:"Combining metabolomics and immunoprofiling to predict response",
-      authors:"Garcia M., Chen H., Li R.",
-      journal:"Cell Reports",
-      year:2021,
-      type:"journal",
+      title:"EAP: a versatile cloud-based platform for comprehensive and interactive analysis of large-scale ChIP/ATAC-seq data sets",
+      authors:"Haojie Chen",
+      journal:"bioRxiv",
+      year:2023,
+      type:"preprint",
       doi:"10.1016/example4",
-      abstract:"我们将代谢组学与免疫表型相结合，建立了预测免疫治疗反应的模型。",
-      tags:["metabolomics","immunotherapy"]
+      abstract:"Epigenome profiling techniques such as ChIP-seq and ATAC-seq have revolutionized our understanding of gene expression regulation in tissue development and disease progression. However, increasing amount of ChIP/ATAC-seq data poses challenges in computational resources, and the absence of systematic tools for epigenomic analysis underscores the necessity for an efficient analysis platform. To address these issues, we developed the Epigenomic Analysis Platform (EAP, https://www.biosino.org/epigenetics), a scalable cloud-based tool that efficiently analyzes large-scale ChIP/ATAC-seq data sets. EAP employs advanced computational algorithms to derive biologically meaningful insights from heterogeneous datasets and automatically generates publication-ready figures and tabular results, enabling comprehensive epigenomic analysis and data mining in areas like cancer subtyping and therapeutic target discovery.",
+      tags:["ATAC/ChIP-seq","Cloud computing","Docker"]
     },
     // ... 可增加更多示例条目
   ];
