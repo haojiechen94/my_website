@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dataset</title>
+ <style>
+    /* Reset-ish */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif; color: #212121; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Top nav */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 32px; background: linear-gradient(90deg, #fff, #fbfdff);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      position: sticky; top: 0; z-index: 20;
+    }
+    .brand { font-weight: 700; font-size: 18px; letter-spacing: 0.3px; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .btn { padding: 10px 16px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: #0b79ff; color: #fff; box-shadow: 0 6px 18px rgba(11, 121, 255, 0.14); }
+    .btn-outline { border: 1px solid rgba(0, 0, 0, 0.08); padding: 8px 14px; background: transparent; }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 64px 6vw;
+    }
+    .hero-left h1 {
+      font-size: 48px; line-height: 1.03; margin-bottom: 18px;
+    }
+    .hero-left p { color: #555; font-size: 18px; margin-bottom: 22px; max-width: 680px; }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 8px; }
+
+    /* Dataset Table */
+    .dataset-table-container {
+      width: 90%; /* Adjust width of container */
+      margin: 0 auto; /* Center the table */
+      padding: 0 5%; /* Add left and right padding to leave space */
+    }
+    .dataset-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+    }
+    .dataset-table th, .dataset-table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    .dataset-table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+      /* Footer */
+    footer {
+      display: flex;
+      justify-content: center;  /* Center the footer content */
+      align-items: center;      /* Vertically center the content */
+      padding: 28px 6vw;
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .small { color: #666; font-size: 13px; }
+
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero { grid-template-columns: 1fr; padding: 36px 4vw; }
+      .hero-left h1 { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">EAP • Dataset</div>
+    <nav class="nav-links">
+      <a class="btn btn-outline" href="https://haojiechen94.github.io/my_website/">Home</a>
+      <a class="btn btn-primary" href="https://www.biosino.org/epigenetics/#">Explore</a>
+    </nav>
+  </header>
+<main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <h1>Explore Our Datasets</h1>
+        <p>Browse through a collection of comprehensive datasets used for epigenomic studies across various cancers. Each dataset provides insights into different biological contexts, cohort sizes, and sources.</p>
+      </div>
+    </section>
+
+    <!-- Dataset Table -->
+    <section class="dataset-table-container">
+      <table class="dataset-table">
+        <thead>
+          <tr>
+            <th>Dataset ID</th>
+            <th>Biological Context</th>
+            <th>Cohort Size</th>
+            <th>Normal Tissues</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DS001</td>
+            <td>H3K27ac ChIP-seq profiles on tumor tissues of lung adenocarcinoma patients (GII:high risk, GI:low risk)</td>
+            <td>42</td>
+            <td>NA</td>
+            <td>Yuan et al. Genome Biology 2021</td>
+          </tr>
+          <tr>
+            <td>DS002</td>
+            <td>ATAC-seq profiles on tumor tissues of non-small cell lung cancer patients</td>
+            <td>34</td>
+            <td>NA</td>
+            <td>Wang et al. Cancer Research 2019</td>
+          </tr>
+          <tr>
+            <td>DS003</td>
+            <td>ATAC-seq profiles on tumor tissues of 23 cancer types</td>
+            <td>410</td>
+            <td>NA</td>
+            <td>Corces et al. Science 2018</td>
+          </tr>
+          <tr>
+            <td>DS004</td>
+            <td>ATAC-seq profiles on thyroid cancer</td>
+            <td>227</td>
+            <td>74</td>
+            <td>Akshay et al. Nature Communications 2021</td>
+          </tr>
+          <tr>
+            <td>DS005</td>
+            <td>ATAC-seq profiles on pancreatic cancer patient derived organoids</td>
+            <td>44</td>
+            <td>NA</td>
+            <td>Shi et al. Nature Communications 2022</td>
+          </tr>
+          <tr>
+            <td>DS006</td>
+            <td>H3K27ac ChIP-seq profiles on gastric cancer cell lines representing the Mesenchymal(Mes) amd non-Mesenchymal(nMes) subtypes</td>
+            <td>26</td>
+            <td>NA</td>
+            <td>Ho et al. Gut 2023</td>
+          </tr>
+          <tr>
+            <td>DS007</td>
+            <td>H3K27ac ChIP-seq profiles on colorectal cancer patients' tumor and adjacent normal tissues</td>
+            <td>147</td>
+            <td>73</td>
+            <td>Li et al. Nature Communications 2021</td>
+          </tr>
+          <tr>
+            <td>DS008</td>
+            <td>ATAC-seq profiles on glioblastoma separated these samples into three subgroups, C3(Low risk), C1(Medium risk), C2(High risk)</td>
+            <td>126</td>
+            <td>NA</td>
+            <td>Lu et al. Nature Communications 2022</td>
+          </tr>
+          <tr>
+            <td>DS009</td>
+            <td>ATAC-seq profiles on human hematopoiesis and leukemia evolution</td>
+            <td>160</td>
+            <td>107</td>
+            <td>Corces et al. Nature Genetics 2016</td>
+          </tr>
+          <tr>
+            <td>DS010</td>
+            <td>H3K4me3 ChIP-seq profiling of the NCI-60 panel of cell lines</td>
+            <td>60</td>
+            <td>NA</td>
+            <td>Gopi et al. Nature Communications 2021</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="small">© 2025 EAP. All rights reserved.</div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <a class="small" href="#contact">Contact</a>
+      <a class="small" href="https://www.biosino.org/epigenetics/help.pdf">Docs</a>
+      <a class="small" href="https://github.com/haojiechen94/EAP/issues">Community</a>
+    </div>
+  </footer>
+
+  <!-- Optional small script for smooth scroll -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const targetId = a.getAttribute('href').slice(1);
+        const el = document.getElementById(targetId);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
