@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>快速开始 - 存储空间申请引导</title>
+  <style>
+    /* 基本样式 */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f7fbff;
+      color: #212121;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 导航栏样式 */
+    header {
+      background: linear-gradient(90deg, #fff, #fbfdff);
+      padding: 18px 32px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a {
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #0b79ff;
+      text-decoration: none;
+    }
+    .nav-links a:hover {
+      background-color: #e6f0ff;
+    }
+
+    /* 主容器 */
+    .container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      max-width: 1200px;
+      margin: 50px auto;
+    }
+
+    /* 步骤方框样式 */
+    .step {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      width: 30%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .step:hover {
+      transform: translateY(-10px);
+    }
+
+    .step h3 {
+      font-size: 22px;
+      color: #0b79ff;
+      margin-bottom: 20px;
+    }
+
+    .step p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .step button {
+      padding: 12px 24px;
+      background-color: #0b79ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .step button:hover {
+      background-color: #0056b3;
+    }
+
+    /* 增加方框之间的间距 */
+    .container > .step {
+      margin-right: 50px; /* 增加步骤之间的空白区域 */
+    }
+
+    /* 页脚 */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #666;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<header>
+  <div class="brand">EAP • Epigenomic</div>
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+  </nav>
+</header>
+
+<!-- 主容器 -->
+<div class="container">
+  <!-- 步骤 1: 注册账号 -->
+  <div class="step">
+    <h3>Step 1: Register an Account</h3>
+    <p>Create an account in EAP, provide your basic information, and complete the registration.</p>
+    <button onclick="window.location.href='https://www.biosino.org/epigenetics/#/user/register'">Start Registration</button>
+  </div>
+
+  <!-- 步骤 2: 申请存储空间 -->
+  <div class="step">
+    <h3>Step 2: Apply for Storage Space</h3>
+    <p>Submit the storage space application form to Admin(chenhaojie2017@sinh.ac.cn).</p>
+    <button onclick="window.location.href='File_1_Storage_space_application_form.xlsx'">Apply for Storage Space</button>
+  </div>
+
+  <!-- 步骤 3: 管理员审核 -->
+  <div class="step">
+    <h3>Step 3: Admin Review</h3>
+    <p>The administrator will review your application and notify you of the result via email.</p>
+    <button onclick="window.location.href='https://haojiechen94.github.io/my_website'">Awaiting Review</button>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<footer>
+  <p>© 2025 EAP. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
